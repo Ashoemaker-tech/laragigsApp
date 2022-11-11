@@ -17,7 +17,8 @@ class listing extends Model
         'website',
         'tags',
         'description',
-        'logo'
+        'logo',
+        'user_id'
     ];
 
     public function scopeFilter($query, array $filters) {
@@ -30,5 +31,11 @@ class listing extends Model
             ->orWhere('description', 'like', '%'. request('search'). '%')
             ->orWhere('tags', 'like', '%' . request('tag') . '%');
         }
+    }
+
+    // Relationship to user
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 }
